@@ -1,0 +1,109 @@
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Logistics App</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
+</head>
+<body>
+    <div class="menu-sidebar">
+        <div class="sign">
+            <img src="img/logo.png" alt="" id="logo" width="32" height="32">
+            <a href="#" id="company">Logistics App</a>
+        </div>
+        <div class="side-bar">
+            <ul>
+                <li><a href="#/first">Pridanie noveho vozidla</a></li>
+                <li><a href="#/second">Vypis vozidiel</a></li>
+                <li><a href="#/third">Pridanie noveho dronu</a></li>
+                <li><a href="#/forth">Vypis dronov</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-wrapper" style="background: #F6F6F6">
+        <div class="nav-bar">
+        
+        </div>
+        <div class="content-container" ng-view>
+            <script type="text/ng-template" id="pages/first.html">
+                <div class="form-wrapper">
+                    <h2>Pridanie noveho vozidla do vozoveho parku</h2>
+                    <form name="adding-form">
+                        <input type="text" ng-model="spz" placeholder="SPZ"><br>
+                        <input type="number" ng-model="nosnostVozidla" placeholder="Nosnost"><br>
+                        <input type="number" ng-model="nakladyVozidla" placeholder="Naklady"><br>
+                        <button ng-click="pridajVozidlo()">Dalej</button>
+                    </form>
+                </div>
+            </script>
+
+            <script type="text/ng-template" id="pages/second.html">
+                <div class="info-table">
+                    <h2>Vypis vozidiel</h2>
+                    <div class="table-list-items">
+                        <li class="col-sm-4">SPZ</li>
+                        <li class="col-sm-4">Nosnost</li>
+                        <li class="col-sm-4">Celkove naklady</li>
+                    </div>
+                    <div class="table-items">
+                        <table>
+                            <tr ng-repeat="vozidlo in vozidla">
+                                <td class="col-sm-4">{{ vozidlo.spz }}</td>
+                                <td class="col-sm-4">{{ vozidlo.nosnostVozidla }}</td>
+                                <td class="col-sm-4">{{ vozidlo.celkoveNaklady }}&euro;</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </script>
+
+            <script type="text/ng-template" id="pages/third.html">
+                <div class="form-wrapper">
+                    <h2>Pridanie noveho dronu do lokalneho prekladiska</h2>
+                    <form name="adding-form" class="adding-form-cl">
+                        <input type="text" ng-model="serioveCislo" placeholder="Seriove cislo"><br>
+                        <span>Typ dronu</span><br>
+                        <span>1</span>
+                        <span style="margin-left: 2.4em;">2</span><br>
+                        <input type="radio" ng-model="typDronu" value="1" ng-click="getVal()">
+                        <input type="radio" ng-model="typDronu" value="2" ng-click="getVal()" style="margin-left: 2em;"><br>
+                        <button ng-click="pridajDron()">Dalej</button>
+                    </form>
+                </div>
+            </script>
+
+            <script type="text/ng-template" id="pages/forth.html">
+                <div class="info-table-dron">
+                    <h2>Vypis dronov</h2>
+                    <div class="table-list-items">
+                        <li class="col-sm-3">Seriove cislo</li>
+                        <li class="col-sm-3">Typ</li>
+                        <li class="col-sm-3">Nalietanych hodin</li>
+                        <li class="col-sm-3">Prepravenych zasielok</li>
+                    </div>
+                    <div class="table-items">
+                        <table>
+                            <tr ng-repeat="dron in flotilaDronov">
+                                <td class="col-sm-3">{{ dron.serioveCislo }}</td>
+                                <td class="col-sm-3">{{ dron.typ.oznacenie }}</td>
+                                <td class="col-sm-3">{{ dron.celkNalHod }}</td>
+                                <td class="col-sm-3">{{ dron.celkPreZas }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </script>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
